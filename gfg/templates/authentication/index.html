@@ -1,26 +1,45 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>homePage</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300&family=Poppins:ital@1&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <link href=>
 </head>
 <body>
     <button class="chatbot-toggler">
         <span class="material-icons-outlined">smart_toy</span>
     </button>
 
-    <button type="submit"> <a href="/signup"> SignUp</button>
-    <button type="submit"> <a href="/signin"> SignIn</button>
-    <button type="submit"> <a href="/signout"> SignOut</button>
+    
     <div class="chatbot">
         <header>
+            {% for message in messages  %}
+            <div class="alert alert-{{message.tags }}  alert.dismissible fade show" role="alert">
+                <strong>Message: </strong> {{ message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+
             <h2>Chatbot</h2>
+            {% if user.is_authenticated %}
+            <h3> Hello {{ fname}} </h3>
+            <h4> you have loggeg in </h4>
+            <button type="submit"> <a href="/signout"> SignOut</button>
+            {% else %}
+            <button type="submit"> <a href="/signup"> SignUp</button>
+            <button type="submit"> <a href="/signin"> SignIn</button>
+          
+            {% endif %}
+
         </header>
         <ul class="chatbox">
             <li class ="chat incoming">
